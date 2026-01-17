@@ -1,36 +1,35 @@
 from dotenv import load_dotenv
-from typing import Union
+from typing import Union,Optional
 from pydantic import BaseModel
 from fastapi import FastAPI
 from app.services.chunking import chunker
 import os
 
-
-load_dotenv()
-
 app = FastAPI()
-
 
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
-
-print(os.getenv("GEMINI_API_KEY"))
 
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: Union[str, None] = None):
     return {"item_id": item_id, "q": q}
 
 class AnalyzeRequest(BaseModel):
-    resume_text:str
-    jd_text:str
+    readme:str
+    docs:str
+    code_of_conduct:Optional[str]= None
+    
 
 @app.post("/analyze")
 def analyze(req:AnalyzeRequest):
-    resume_chunks=chunker(req.resume_text)
-    jd_chunks=chunker(req.jd_text)
+    readme_chunks=chunker(req.readme)
+    docs_chunks=chunker(req.docs)
+    if(req.code_of_conduct):
+        coc_chunks=chunker(req.code_of_conduct)
 
     return {
-        "resume_chunks": resume_chunks,
-        "jd_chunks": jd_chunks
+        "readme_chunks": readme_chunks,
+        "docs_chunks": docs_chunks,
+        "coc_chunks": coc_chunks
     }
