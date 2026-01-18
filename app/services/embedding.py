@@ -3,7 +3,7 @@ load_dotenv()
 
 from google import genai
 import os
-from app.utils.cosine import cosine
+
 
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 def embed(text:list[str])->list[list[float]]:

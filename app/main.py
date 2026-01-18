@@ -3,7 +3,11 @@ from typing import Union,Optional
 from pydantic import BaseModel
 from fastapi import FastAPI
 from app.services.chunking import chunker
+from app.services.embedding import embed
+from app.utils.search import sim_search
+from app.utils.load import load_chunks
 import os
+import psycopg2
 
 app = FastAPI()
 
@@ -15,14 +19,15 @@ def read_root():
 def read_item(item_id: int, q: Union[str, None] = None):
     return {"item_id": item_id, "q": q}
 
-class AnalyzeRequest(BaseModel):
+conn=psycopg2.connect(os.getenv("DATABASE_URL"))
+
+class AnalyzeReq(BaseModel):
     readme:str
     docs:str
     code_of_conduct:Optional[str]= None
     
-
 @app.post("/analyze")
-def analyze(req:AnalyzeRequest):
+def analyze(req:AnalyzeReq):
     readme_chunks=chunker(req.readme)
     docs_chunks=chunker(req.docs)
     if(req.code_of_conduct):
@@ -33,3 +38,15 @@ def analyze(req:AnalyzeRequest):
         "docs_chunks": docs_chunks,
         "coc_chunks": coc_chunks
     }
+
+class ValidateReq(BaseModel):
+    repo_id:str
+    diff:str
+@app.post("/validate")
+def validate(req:ValidateReq):
+    diff=req.diff
+    chunks=load_chunks(conn,req.repo_id)
+    relevant_chunk=sim_search(diff,chunks)
+    
+
+
