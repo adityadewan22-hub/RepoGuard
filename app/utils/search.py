@@ -9,7 +9,7 @@ class Chunk(BaseModel):
     content: str
     embedding: list[float]
 
-def sim_search(query: str, chunks:list[Chunk], k=3):
+def sim_search(query: str, chunks:list[Chunk], k=5):
     #basically call sim_check between query and all chunks one 1 by 1
     checker=[]
     search=[]

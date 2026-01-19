@@ -1,6 +1,6 @@
 import re
 
-def chunker(text:str):
+def chunker(text:str)->list:
     check_heading=re.compile(r"""
         ^\s*(\#{1,6}\s+[^\n]+)$
         |

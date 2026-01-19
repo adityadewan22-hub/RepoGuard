@@ -6,6 +6,8 @@ from app.services.chunking import chunker
 from app.services.embedding import embed
 from app.utils.search import sim_search
 from app.utils.load import load_chunks
+from app.prompt_builder import build_prompt
+from app.services.generation import call_gemini
 import os
 import psycopg2
 
@@ -44,9 +46,25 @@ class ValidateReq(BaseModel):
     diff:str
 @app.post("/validate")
 def validate(req:ValidateReq):
+    #get the diff/code change
     diff=req.diff
+
+    #load the saved chunks of readme/coc/guidelines from db
     chunks=load_chunks(conn,req.repo_id)
+
+    #get the top k chunks to reason on
     relevant_chunk=sim_search(diff,chunks)
+
+    #build the prompt
+    prompt=build_prompt(relevant_chunk,diff=diff)
+
+    #call the ai api key
+    generation=call_gemini(prompt=prompt)
+
+
+    
+
+
     
 
 
