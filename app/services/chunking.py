@@ -1,6 +1,7 @@
 import re
+from app.models.chunk import Chunk
 
-def chunker(text:str)->list:
+def chunker(text:str,authority:str)->list[Chunk]:
     check_heading=re.compile(r"""
         ^\s*(\#{1,6}\s+[^\n]+)$
         |
@@ -19,10 +20,13 @@ def chunker(text:str)->list:
         # save content before this heading
         content = text[last_end:start].strip()
         if content:
-            chunks.append({
-                "heading": current_heading,
-                "content": content
-            })
+            chunks.append(
+                Chunk(
+                    authority=authority,
+                    heading= current_heading,
+                    content=content
+                )
+            )
 
         # extract heading text
         if match.group(1):  # markdown
@@ -35,11 +39,12 @@ def chunker(text:str)->list:
     # trailing content
     tail = text[last_end:].strip()
     if tail:
-        chunks.append({
-            "heading": current_heading,
-            "content": tail,
-            "authority": "intro" if current_heading == "INTRO" else "doc",
-        })
+        chunks.append(
+            Chunk(
+                authority=authority,
+                heading= current_heading,
+                content=tail
+                ))
     return chunks
 
 if __name__ == "__main__":

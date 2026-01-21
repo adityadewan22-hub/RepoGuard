@@ -2,12 +2,7 @@ from pydantic import BaseModel
 from app.utils.cosine import sim_check
 from app.services.embedding import embed
 from collections import deque
-
-class Chunk(BaseModel):
-    authority: str
-    heading: str
-    content: str
-    embedding: list[float]
+from app.models.chunk import Chunk
 
 def sim_search(query: str, chunks:list[Chunk], k=5):
     #basically call sim_check between query and all chunks one 1 by 1

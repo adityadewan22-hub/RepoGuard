@@ -8,6 +8,7 @@ def init_db():
      cur.execute("""
         CREATE TABLE IF NOT EXISTS doc_chunks(
                 id SERIAL PRIMARY KEY,
+                repo_id TEXT NOT NULL,
                 authority TEXT NOT NULL,
                 heading TEXT NOT NULL,
                 content TEXT NOT NULL,
@@ -16,3 +17,4 @@ def init_db():
     """)
     connect.commit()
 
+init_db()

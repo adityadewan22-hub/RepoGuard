@@ -74,17 +74,17 @@ Do NOT include comments.
 
 The JSON MUST strictly match this schema:
 
-{
-  "status": "OK | Warning | Violation",
-  "explanation": "Concise explanation referencing the specific guideline(s) and the relevant part of the diff.",
-  "violated_guidelines": [
-    {
-      "authority": "README | CONTRIBUTING | CODE_OF_CONDUCT | OTHER",
-      "heading": "Exact guideline heading",
-      "reason": "Why this guideline is applicable or violated"
-    }
+{{
+    "status": "OK | Warning | Violation",
+    "explanation": "Concise explanation referencing the specific guideline(s) and the relevant part of the diff.",
+    "violated_guidelines": [
+      {{
+        "authority": "README | CONTRIBUTING | CODE_OF_CONDUCT | OTHER",
+        "heading": "Exact guideline heading",
+        "reason": "Why this guideline is applicable or violated"
+      }}
   ]
-}
+  }}
 
 ========================
 IMPORTANT CONSTRAINTS
