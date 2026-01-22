@@ -2,7 +2,7 @@ import subprocess
 
 def get_diff():
     result = subprocess.run(
-        ["git", "diff", "origin/main...HEAD"],
+        ["git", "diff"],
         capture_output=True,
         text=True,
     )

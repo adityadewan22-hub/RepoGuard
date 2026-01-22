@@ -1,9 +1,10 @@
 import os
 import psycopg2
 from app.models.chunk import Chunk
+from app.db import get_conn
 
-con=psycopg2.connect(os.getenv("DATABASE_URL"))
 def store_chunks(con,repo_id:str,chunks:list[Chunk]):
+    con=get_conn()
     with con.cursor() as cur:
         for chunk in chunks:
             cur.execute(

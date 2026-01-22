@@ -1,4 +1,15 @@
 import argparse
+import sys
+
+from repoguard.gitdiff import get_diff
+from repoguard.format import print_result
+from repoguard.run import validate_local
+
+EXIT_CODES={
+   "OK":0,
+   "Warning":10,
+   "Violation":20
+}
 
 def main():
     parser=argparse.ArgumentParser(prog="repoguard")
@@ -9,6 +20,20 @@ def main():
     args=parser.parse_args()
 
     if args.command=="validate":
-        print("Repoguard validate running")
+        try:
+          diff = get_diff()
+          if not diff.strip():
+            print("No changes detected.")
+            sys.exit(0)
+
+          result = validate_local(diff)
+
+          print_result(result)
+          sys.exit(EXIT_CODES.get(result.status, 30))
+
+        except Exception as e:
+          print("RepoGuard error:", e)
+          sys.exit(30)
     else:
         parser.print_help()
+        sys.exit(30)

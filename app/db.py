@@ -1,9 +1,12 @@
 import psycopg2
 import os
 
-connect=psycopg2.connect(os.getenv("DATABASE_URL"))
+
+def get_conn():
+    return psycopg2.connect(os.getenv("DATABASE_URL"))
 
 def init_db():
+    connect=get_conn()
     with connect.cursor() as cur:
      cur.execute("""
         CREATE TABLE IF NOT EXISTS doc_chunks(
@@ -16,5 +19,6 @@ def init_db():
         );
     """)
     connect.commit()
+    connect.close()
 
 init_db()
