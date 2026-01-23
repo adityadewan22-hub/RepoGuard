@@ -1,12 +1,14 @@
-from app.services.validator import run_validate
+# repoguard/run.py
+import requests
 from app.models.validation import Validation
-from app.db import get_conn
 
-def validate_local(diff:str):
-    connect=get_conn()
-    return run_validate(
-        repo_id="local",
-        diff=diff,
-        connect=connect
+REPOGUARD_API = "https://repoguard.dev/validate"  # your FastAPI server
+
+def validate_remote(diff: str) -> Validation:
+    resp = requests.post(
+        REPOGUARD_API,
+        json={"diff": diff},
+        timeout=30,
     )
-
+    resp.raise_for_status()
+    return Validation.model_validate(resp.json())

@@ -3,7 +3,7 @@ import sys
 
 from repoguard.gitdiff import get_diff
 from repoguard.format import print_result
-from repoguard.run import validate_local
+from repoguard.run import validate_remote
 
 EXIT_CODES={
    "OK":0,
@@ -26,7 +26,7 @@ def main():
             print("No changes detected.")
             sys.exit(0)
 
-          result = validate_local(diff)
+          result = validate_remote(diff)
 
           print_result(result)
           sys.exit(EXIT_CODES.get(result.status, 30))
