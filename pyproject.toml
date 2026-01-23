@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "repoguard"
+version = "0.1.0"
+description = "Repo-aware PR guideline validator"
+requires-python = ">=3.9"
+dependencies = [
+  "pydantic>=2",
+  "fastapi",
+  "psycopg2-binary",
+  # gemini sdk etc
+]
+
+[project.scripts]
+repoguard = "repoguard.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["repoguard*", "app*"]
