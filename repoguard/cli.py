@@ -3,7 +3,7 @@ import sys
 
 from repoguard.gitdiff import get_diff
 from repoguard.format import print_result
-from repoguard.run import validate_remote
+from repoguard.run import validate_remote,analyze_remote
 
 EXIT_CODES={
    "OK":0,
@@ -15,9 +15,19 @@ def main():
     parser=argparse.ArgumentParser(prog="repoguard")
     subparser=parser.add_subparsers(dest="command")
 
+    subparser.add_parser("analyze")
     subparser.add_parser("validate")
 
     args=parser.parse_args()
+
+    if args.command == "analyze":
+      try:
+          analyze_remote()
+          print("RepoGuard analysis complete.")
+          sys.exit(0)
+      except Exception as e:
+        print("RepoGuard analyze error:", e)
+        sys.exit(30)
 
     if args.command=="validate":
         try:
