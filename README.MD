@@ -2,15 +2,15 @@
 
 ### 1. Install
 
-pip install repoguard-cli
+pip install repoguard-ai
 
 ### 2. Analyze repository guidelines (one-time or when docs change)
 
-repoguard-cli analyze
+repoguard-ai analyze
 
 ### 3. Validate repository
 
-repoguard-cli validate
+repoguard-ai validate
 
 # RepoGuard
 

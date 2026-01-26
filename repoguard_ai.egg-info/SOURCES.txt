@@ -24,9 +24,9 @@ repoguard/format.py
 repoguard/gitdiff.py
 repoguard/repo.py
 repoguard/run.py
-repoguard_cli.egg-info/PKG-INFO
-repoguard_cli.egg-info/SOURCES.txt
-repoguard_cli.egg-info/dependency_links.txt
-repoguard_cli.egg-info/entry_points.txt
-repoguard_cli.egg-info/requires.txt
-repoguard_cli.egg-info/top_level.txt
+repoguard_ai.egg-info/PKG-INFO
+repoguard_ai.egg-info/SOURCES.txt
+repoguard_ai.egg-info/dependency_links.txt
+repoguard_ai.egg-info/entry_points.txt
+repoguard_ai.egg-info/requires.txt
+repoguard_ai.egg-info/top_level.txt
