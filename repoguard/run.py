@@ -5,10 +5,7 @@ import os
 from repoguard.repo import get_repo_id
 from repoguard.docs import load_repo_docs
 
-REPOGUARD_API = os.getenv(
-    "REPOGUARD_API",
-    "https://repoguard-lp49.onrender.com"
-)
+REPOGUARD_API =  "https://repoguard-lp49.onrender.com"
 
 def analyze_remote():
     repo_id = get_repo_id()

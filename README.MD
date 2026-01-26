@@ -1,3 +1,17 @@
+## Usage (3 commands)
+
+### 1. Install
+
+pip install repoguard-cli
+
+### 2. Analyze repository guidelines (one-time or when docs change)
+
+repoguard-cli analyze
+
+### 3. Validate repository
+
+repoguard-cli validate
+
 # RepoGuard
 
 RepoGuard is a **repo-aware pull request guideline validator**.
@@ -31,17 +45,24 @@ But real engineering rules often live only in documentation:
 
 - “Breaking changes must include migration notes”
 - “Public APIs must be documented”
-- “New endpoints require auth checks”
+- “New endpoints require authentication”
+- “Security-sensitive changes require justification”
 
-RepoGuard enforces **what the repository itself says**, not external opinions.
+RepoGuard enforces **what the repository itself declares**, not external opinions.
 
 ---
 
-## Zero-setup usage (2 steps)
+## How RepoGuard works
 
-RepoGuard is designed to be usable **immediately**, with no configuration.
+RepoGuard operates in **two explicit phases**:
 
-```bash
-pip install repoguard
-repoguard validate
-```
+1. **Analyze** – index the repository’s written guidelines
+2. **Validate** – evaluate code diffs against those guidelines
+
+This makes the system:
+
+- deterministic
+- explainable
+- reusable across multiple validations
+
+---
