@@ -67,7 +67,7 @@ This makes the system:
 
 ---
 
-````mermaid
+```mermaid
 flowchart TD
     A[Pull Request / Code Diff] --> B[RepoGuard CLI / GitHub Action]
 
@@ -102,5 +102,5 @@ flowchart TD
 
     L --> M[CLI Output / PR Comment]
 
-    ```
-````
+
+```
