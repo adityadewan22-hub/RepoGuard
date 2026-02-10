@@ -68,39 +68,39 @@ This makes the system:
 ---
 
 ```mermaid
+
 flowchart TD
-    A[Pull Request / Code Diff] --> B[RepoGuard CLI / GitHub Action]
+    A[Pull Request or Code Diff] --> B[RepoGuard CLI or GitHub Action]
 
     B --> C[Load Repository Context]
     C --> C1[README.md]
     C --> C2[CONTRIBUTING.md]
-    C --> C3[CODE_OF_CONDUCT.md (optional)]
+    C --> C3[CODE_OF_CONDUCT.md optional]
 
     C --> D[Guideline Processing]
     D --> D1[Chunk Guidelines]
     D --> D2[Generate Embeddings]
-    D --> D3[Store / Query Vector DB]
+    D --> D3[Store or Query Vector DB]
 
     A --> E[Diff Analysis]
     E --> E1[Extract Changed Files]
     E --> E2[Summarize Code Changes]
 
     D --> F[Semantic Retrieval]
-    F --> F1[Top-K Relevant Guidelines]
+    F --> F1[Top K Relevant Guidelines]
 
     E --> G[LLM Evaluation]
     F --> G
 
     G --> H{Compliance Decision}
-    H -->|Compliant| I[OK]
-    H -->|Ambiguous| J[Warning]
-    H -->|Violation| K[Violation]
+    H --> I[OK]
+    H --> J[Warning]
+    H --> K[Violation]
 
     I --> L[Structured Report]
     J --> L
     K --> L
 
-    L --> M[CLI Output / PR Comment]
-
+    L --> M[CLI Output or PR Comment]
 
 ```
